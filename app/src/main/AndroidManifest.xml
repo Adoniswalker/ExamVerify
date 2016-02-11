@@ -3,8 +3,8 @@
     package="com.example.adonis.myfirstapp">
 
     <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVe220220rsion="19" />
+        android:minSdkVersion="21"
+        android:targetSdkVersion="27" />
 
     <!--i added this-->
     <uses-feature
@@ -17,7 +17,8 @@
         android:value="barcode" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <!--i added upto here-->
-
+    <uses-permission
+        android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -36,20 +37,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".DisplayMessageAcivity"
-            android:parentActivityName=".MainActivity">
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <!-- <activity android:name=".DisplayMessageAcivity"></activity> -->
-        <activity android:name=".ScanActivity"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+        <activity android:name=".ScanActivity">
+            <!--android:parentActivityName=".MainActivity">-->
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value=".MainActivity"/>-->
         </activity>
     </application>
 
