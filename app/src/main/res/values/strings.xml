@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Exam Card Scanner</string>
+    <string name="scan_qr">scan</string>
+    <string name="qr_label">Exam Card Scanner</string>
+    <string name="SearchingTextView">Searching....</string>
+</resources>
