@@ -3,6 +3,7 @@ package com.example.adonis.myfirstapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,12 +18,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //following loads all ui components
         setContentView(R.layout.activity_main);
 
 
         result_text = findViewById(R.id.result_textview);
         scan_click = findViewById(R.id.btn_scan);
-
         scan_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,12 +42,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
+        Log.w("MainActivity","on result called");
         if (requestCode == BAR_CODE_VALUE) {
+//            Log.w("MainActivity", resultCode);
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
+                Log.w("MainActivity","Good result");
                 String returned_string = data.getStringExtra("exam_key");
                 result_text.setText(returned_string);
             }
+            else{Log.w("MainActivity", "Not ok");}
         }
     }
 

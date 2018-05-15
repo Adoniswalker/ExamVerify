@@ -69,7 +69,7 @@ public class ScanActivity extends AppCompatActivity {
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.ALL_FORMATS)
                 .build();
-
+        // creating camera source and pasing barcode detector
         cameraSource = new CameraSource.Builder(this, barcodeDetector)
                 .setRequestedPreviewSize(1920, 1080)
                 .setAutoFocusEnabled(true) //you should add this feature
@@ -79,7 +79,8 @@ public class ScanActivity extends AppCompatActivity {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
-                    if (ActivityCompat.checkSelfPermission(ScanActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(ScanActivity.this,
+                            Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                         cameraSource.start(surfaceView.getHolder());
                     } else {
                         ActivityCompat.requestPermissions(ScanActivity.this, new
@@ -107,6 +108,7 @@ public class ScanActivity extends AppCompatActivity {
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
+                //releases barcode when back is called
                 Toast.makeText(getApplicationContext(), "To prevent memory leaks barcode " +
                         "scanner has been stopped", Toast.LENGTH_SHORT).show();
             }
@@ -115,48 +117,40 @@ public class ScanActivity extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if (barcodes.size() != 0) {
-                    Intent resultIntent = new Intent();
-                    intentData = barcodes.valueAt(0).displayValue;
-//                    txtBarcodeValue.setText(intentData);
+                    txtBarcodeValue.post(new Runnable(){
+                        @Override
+                        public void run() {
+//                            Log.w("ScanActivity","Let see if its called when data is found");
+                            Intent resultIntent = new Intent();
+                            intentData = barcodes.valueAt(0).displayValue;
+//                            txtBarcodeValue.setText(intentData);
 
-                    resultIntent.putExtra("exam_key", resultIntent);
-                    setResult(RESULT_OK, resultIntent);
-                    finish();
-//                    txtBarcodeValue.post(new Runnable() {
-//
-//                        @Override
-//                        public void run() {
-//
-//                            if (barcodes.valueAt(0).email != null) {
-//                                txtBarcodeValue.removeCallbacks(null);
-//                                intentData = barcodes.valueAt(0).email.address;
-//                                txtBarcodeValue.setText(intentData);
-//                                isEmail = true;
-////                                btnAction.setText("ADD CONTENT TO THE MAIL");
-//                            } else {
-//                                isEmail = false;
-////                                btnAction.setText("LAUNCH URL");
-//                                intentData = barcodes.valueAt(0).displayValue;
-//                                txtBarcodeValue.setText(intentData);
-//
-//                            }
-//                        }
-//                    });
+                            resultIntent.putExtra("exam_key", resultIntent);
+                            setResult(RESULT_OK, resultIntent);
+                            finish();
+                            cameraSource.stop();
+                        }
+                    });
 
                 }
             }
+
+
         });
+
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
+        //when user pause the activity this is called to release resources
         cameraSource.release();
     }
 
     @Override
     protected void onResume() {
+        //when the user starts interacting with the activity this is called
         super.onResume();
         initialiseDetectorsAndSources();
     }
