@@ -3,7 +3,7 @@
     package="com.example.adonis.myfirstapp">
 
     <uses-sdk
-        android:minSdkVersion="21"
+        android:minSdkVersion= "21"
         android:targetSdkVersion="27" />
 
     <!--i added this-->
@@ -12,10 +12,7 @@
         android:required="true" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-    <meta-data
-        android:name="com.google.android.gms.vision.DEPENDENCIES"
-        android:value="barcode" />
-    <uses-permission android:name="android.permission.VIBRATE" />
+     <uses-permission android:name="android.permission.VIBRATE" />
     <!--i added upto here-->
     <uses-permission
         android:name="android.permission.INTERNET"/>
@@ -37,12 +34,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScanActivity">
-            <!--android:parentActivityName=".MainActivity">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value=".MainActivity"/>-->
+        <activity android:name=".ScanActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
         </activity>
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
     </application>
 
 </manifest>
