@@ -10,16 +10,22 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     static final int BAR_CODE_VALUE = 1; //value identified returned data
-    TextView result_text = (TextView) findViewById(R.id.result_textview);
-    final Button scan_click = (Button)findViewById(R.id.btn_scan);
+
+    TextView result_text;
+    Button scan_click;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        scan_click.setOnClickListener(new View.OnClickListener(){
+
+
+        result_text = findViewById(R.id.result_textview);
+        scan_click = findViewById(R.id.btn_scan);
+
+        scan_click.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 callScanning();
             }
         });
