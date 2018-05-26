@@ -125,7 +125,7 @@ public class ScanActivity extends AppCompatActivity {
                             intentData = barcodes.valueAt(0).displayValue;
 //                            txtBarcodeValue.setText(intentData);
 
-                            resultIntent.putExtra("exam_key", resultIntent);
+                            resultIntent.putExtra("exam_key", intentData);
                             setResult(RESULT_OK, resultIntent);
                             finish();
                             cameraSource.stop();
