@@ -28,7 +28,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
-import java.util.HashMap;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -197,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void apply_table(JSONArray response) throws JSONException {
-        for (int i = 0; i < response.length(); i++) {
+        for (int i = 1; i <= response.length(); i++) {
             TableRow row = new TableRow(this);
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
             row.setLayoutParams(lp);
