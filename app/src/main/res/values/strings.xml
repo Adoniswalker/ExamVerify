@@ -3,4 +3,17 @@
     <string name="scan_qr">scan</string>
     <string name="qr_label">Exam Card Scanner</string>
     <string name="SearchingTextView">Searching....</string>
+    <string name="student_name">Name</string>
+    <string name="reg_no">Reg No</string>
+    <string name="program_name">Program</string>
+    <string name="allowed_exam">Allowed</string>
+    <string name="date_allowed">Date</string>
+    <string name="image_view">Image</string>
+    <string name="academic_year">Academic</string>
+    <string name="empty_textView">...</string>
+    <string name="allowed_exam_value">Allowed</string>
+    <string-array name="student_value">
+        <item name="name_value">…</item>
+        <item name="reg_value">…</item>
+    </string-array>
 </resources>
