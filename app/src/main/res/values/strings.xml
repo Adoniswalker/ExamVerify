@@ -14,6 +14,10 @@
     <string name="allowed_exam_value">Allowed</string>
     <string name="unit_code">Code</string>
     <string name="unit_name">Name</string>
+    <string name="clear_word">...</string>
+    <string name="success">Successfull</string>
+    <string name="loading">Looding...</string>
+    <string name="unexpected_int">Expected an int</string>
     <string-array name="student_value">
         <item name="name_value">…</item>
         <item name="reg_value">…</item>

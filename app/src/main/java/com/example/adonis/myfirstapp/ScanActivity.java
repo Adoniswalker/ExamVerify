@@ -26,9 +26,7 @@ public class ScanActivity extends AppCompatActivity {
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
-    //    Button btnAction;
     String intentData = "";
-//    boolean isEmail = false;
 
 
     @Override
@@ -41,25 +39,6 @@ public class ScanActivity extends AppCompatActivity {
     private void initViews() {
         txtBarcodeValue = findViewById(R.id.txtBarcodeValue);
         surfaceView = findViewById(R.id.surfaceView);
-//        btnAction = findViewById(R.id.btnAction);
-
-
-//        btnAction.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if (intentData.length() > 0) {
-//                    if (isEmail)
-//                        Toast.makeText(getApplicationContext(), intentData, Toast.LENGTH_LONG).show();
-//                        startActivity(new Intent(ScanActivity.this, EmailActivity.class).putExtra("email_address", intentData));
-//                    else {
-//                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(intentData)));
-//                    }
-//                }
-
-
-//            }
-//        });
     }
 
     private void initialiseDetectorsAndSources() {
@@ -120,6 +99,7 @@ public class ScanActivity extends AppCompatActivity {
                     txtBarcodeValue.post(new Runnable(){
                         @Override
                         public void run() {
+                            cameraSource.stop();
 //                            Log.w("ScanActivity","Let see if its called when data is found");
                             Intent resultIntent = new Intent();
                             intentData = barcodes.valueAt(0).displayValue;
@@ -128,7 +108,6 @@ public class ScanActivity extends AppCompatActivity {
                             resultIntent.putExtra("exam_key", intentData);
                             setResult(RESULT_OK, resultIntent);
                             finish();
-                            cameraSource.stop();
                         }
                     });
 
