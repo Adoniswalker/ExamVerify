@@ -11,23 +11,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.net.URL;
+import java.util.HashMap;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     CheckBox allow_checkbox;
     TextView program_textView;
     ImageView student_image;
+    TableLayout units_table;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +54,14 @@ public class MainActivity extends AppCompatActivity {
 
         result_text = findViewById(R.id.result_textview);
         scan_click = findViewById(R.id.btn_scan);
-        student_image =findViewById(R.id.imageView);
+        student_image = findViewById(R.id.imageView);
         name_textView = findViewById(R.id.textViewNameValue);
         adm_textView = findViewById(R.id.textViewRegValue);
         academic_textView = findViewById(R.id.textViewAcademicValue);
         date_textView = findViewById(R.id.textViewDateValue);
         allow_checkbox = findViewById(R.id.allowed_exam_checkBox);
         program_textView = findViewById(R.id.textViewProgramValue);
+        units_table = findViewById(R.id.units_table);
         scan_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,25 +83,21 @@ public class MainActivity extends AppCompatActivity {
             Log.w("MainActivity", String.valueOf(requestCode));
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-//                Log.w("MainActivity", "Good result");
                 String returned_string = data.getStringExtra("exam_key");
-                ;
-                if(isStringInt(returned_string)){
+                if (isStringInt(returned_string)) {
                     getExamDetails(Integer.parseInt(returned_string));
-                }else {
+                } else {
                     result_text.setText(returned_string);
                 }
             }
         }
     }
-    public boolean isStringInt(String s)
-    {
-        try
-        {
+
+    public boolean isStringInt(String s) {
+        try {
             Integer.parseInt(s);
             return true;
-        } catch (NumberFormatException ex)
-        {
+        } catch (NumberFormatException ex) {
             return false;
         }
     }
@@ -106,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     public void getExamDetails(final int exam_id) {
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://examverify.pythonanywhere.com/api/exam/"+exam_id+"/";
+        String url = "http://examverify.pythonanywhere.com/api/exam/" + exam_id + "/";
 
         // Request a string response from the provided URL.
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -116,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             String student_name = (String) response.get("student_name");
                             String student_admission = (String) response.get("admission");
-                            String student_date = (String)response.get("date_allowed");
+                            String student_date = (String) response.get("date_allowed");
                             boolean student_allowed = (Boolean) response.get("allowed_exam");
                             String student_program = (String) response.get("program");
                             int student_period = (int) response.get("period_exams");
@@ -125,11 +124,12 @@ public class MainActivity extends AppCompatActivity {
                             name_textView.setText(student_name);
                             adm_textView.setText(student_admission);
                             date_textView.setText(student_date);
-//                            allow_textView.setText(student_allowed);
 //                            academic_textView.setText(student_academic);
                             program_textView.setText(student_program);
                             allow_checkbox.setChecked(student_allowed);
+                            //setup image
                             new DownloadImageTask(student_image).execute(student_image_url);
+                            addAndGetUnits(student_period, program_id);
 
 
                         } catch (JSONException e) {
@@ -144,6 +144,30 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Add the request to the RequestQueue.
+        queue.add(jsonRequest);
+    }
+
+    private void addAndGetUnits(int period, int program) {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://examverify.pythonanywhere.com/api/units/?period=" + period + "&program=" + program;
+
+        // Request a string response from the provided URL.
+        JsonArrayRequest jsonRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            apply_table(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                result_text.setText("Not found. For id");
+            }
+        });
         queue.add(jsonRequest);
     }
 
@@ -172,4 +196,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void apply_table(JSONArray response) throws JSONException {
+        for (int i = 0; i < response.length(); i++) {
+            TableRow row = new TableRow(this);
+            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+            row.setLayoutParams(lp);
+            String code = response.getJSONObject(i).getString("code");
+            String name = response.getJSONObject(i).getString("name");
+            TextView code_view = new TextView(this);
+            TextView name_view = new TextView(this);
+            code_view.setText(code);
+            name_view.setText(name);
+            row.addView(code_view);
+            row.addView(name_view);
+            units_table.addView(row, i);
+        }
+    }
 }

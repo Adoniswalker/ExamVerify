@@ -59,8 +59,8 @@
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/student_table"
         android:layout_width="match_parent"
-        android:layout_height="362dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/units_table"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_scan">
@@ -72,37 +72,12 @@
                 android:id="@+id/textViewNameLbl"
                 android:padding="3dip"
                 android:text="@string/student_name" />
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-
-            <!--android:layout_marginBottom="8dp"-->
-            <!--android:layout_marginEnd="8dp"-->
-            <!--android:layout_marginStart="8dp"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--app:layout_column="0"-->
-            <!--app:layout_constraintBottom_toTopOf="@+id/textViewRegLabel"-->
-            <!--app:layout_constraintEnd_toStartOf="@+id/textViewNameValue"-->
-            <!--app:layout_constraintHorizontal_chainStyle="spread_inside"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="parent"-->
-            <!--app:layout_row="0"-->
-            <!--tools:text="@string/student_name" />-->
 
             <TextView
                 android:id="@+id/textViewNameValue"
                 android:gravity="end"
                 android:padding="3dip"
                 android:text="@string/empty_textView" />
-            <!--android:background="#f10707"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="23dp"-->
-            <!--android:layout_marginBottom="3dp"-->
-            <!--android:layout_marginStart="27dp"-->
-            <!--app:layout_column="1"-->
-            <!--app:layout_constraintBottom_toTopOf="@+id/textViewRegValue"-->
-            <!--app:layout_constraintStart_toEndOf="@+id/textViewNameLbl"-->
-            <!--app:layout_row="0" />-->
-
 
         </TableRow>
 
@@ -112,28 +87,13 @@
                 android:id="@+id/textViewRegLabel"
                 android:padding="3dip"
                 android:text="@string/reg_no" />
-            <!--android:layout_width="wrap_content"-->
-            <!--/                android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="8dp"-->
-            <!--app:layout_column="0"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_row="1"-->
-            <!--tools:layout_editor_absoluteY="34dp"-->
-            <!--tools:text="@string/reg_no" />-->
 
             <TextView
                 android:id="@+id/textViewRegValue"
                 android:gravity="end"
                 android:padding="3dip"
                 android:text="@string/empty_textView" />
-            <!--android:text="@string/empty_textView"/>-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="19dp"-->
-            <!--app:layout_column="1"-->
-            <!--app:layout_constraintStart_toEndOf="@+id/textViewRegLabel"-->
-            <!--app:layout_row="1"-->
-            <!--tools:layout_editor_absoluteY="34dp" />-->
+
         </TableRow>
 
         <TableRow>
@@ -142,29 +102,14 @@
                 android:id="@+id/textViewDateLbl"
                 android:padding="3dip"
                 android:text="@string/date_allowed" />
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginEnd="33dp"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--app:layout_column="0"-->
-            <!--app:layout_constraintBottom_toTopOf="@+id/textViewAcademicLbl"-->
-            <!--app:layout_constraintEnd_toStartOf="@+id/textViewDateValue"-->
-            <!--app:layout_constraintStart_toStartOf="@+id/textViewRegLabel"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/textViewRegLabel"-->
-            <!--app:layout_row="2"-->
-            <!--tools:text="@string/date_allowed" />-->
+
 
             <TextView
                 android:id="@+id/textViewDateValue"
                 android:gravity="end"
                 android:padding="3dip"
                 android:text="@string/empty_textView" />
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:layout_column="1"-->
-            <!--app:layout_constraintStart_toEndOf="@+id/textViewAcademicLbl"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/textViewRegValue"-->
-            <!--app:layout_row="2" />-->
+
         </TableRow>
 
         <TableRow>
@@ -173,28 +118,14 @@
                 android:id="@+id/textViewAcademicLbl"
                 android:padding="3dip"
                 android:text="@string/academic_year" />
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--app:layout_column="0"-->
-            <!--app:layout_constraintBottom_toTopOf="@+id/textViewAllowedLabel"-->
-            <!--app:layout_constraintEnd_toStartOf="@+id/textViewAcademicValue"-->
-            <!--app:layout_constraintStart_toStartOf="@+id/textViewDateLbl"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/textViewDateLbl"-->
-            <!--app:layout_row="3"-->
-            <!--tools:text="@string/academic_year" />-->
+
 
             <TextView
                 android:id="@+id/textViewAcademicValue"
                 android:gravity="end"
                 android:padding="3dip"
                 android:text="@string/empty_textView" />
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:layout_column="1"-->
-            <!--app:layout_constraintStart_toEndOf="@+id/textViewAcademicLbl"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/textViewDateValue"-->
-            <!--app:layout_row="3" />-->
+
         </TableRow>
 
         <TableRow>
@@ -203,31 +134,14 @@
                 android:id="@+id/textViewAllowedLabel"
                 android:padding="3dip"
                 android:text="@string/allowed_exam" />
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginEnd="8dp"-->
-            <!--android:layout_marginTop="18dp"-->
-            <!--app:layout_column="0"-->
-            <!--app:layout_constraintBottom_toTopOf="@+id/allowed_exam_checkBox"-->
-            <!--app:layout_constraintEnd_toStartOf="@+id/textViewProgramValue"-->
-            <!--app:layout_constraintStart_toStartOf="@+id/textViewAcademicLbl"-->
-            <!--app:layout_constraintTop_toTopOf="@+id/textViewAcademicLbl"-->
-            <!--app:layout_row="4"-->
-            <!--tools:text="@string/allowed_exam" />-->
+
 
             <CheckBox
                 android:id="@+id/allowed_exam_checkBox"
                 android:gravity="end"
                 android:padding="3dip"
                 android:text="@string/allowed_exam_value" />
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="10dp"-->
-            <!--android:layout_marginTop="1dp"-->
-            <!--app:layout_column="1"-->
-            <!--app:layout_constraintStart_toEndOf="@+id/textViewAllowedLabel"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/textViewProgramValue"-->
-            <!--app:layout_row="4" />-->
+
         </TableRow>
 
         <TableRow>
@@ -242,23 +156,31 @@
                 android:gravity="end"
                 android:padding="3dip"
                 android:text="@string/empty_textView" />
+        </TableRow>
+    </TableLayout>
 
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="1dp"-->
-            <!--android:layout_marginTop="1dp"-->
-            <!--app:layout_column="1"-->
-            <!--app:layout_constraintStart_toEndOf="@+id/textViewAcademicLbl"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/textViewAcademicValue"-->
-            <!--app:layout_row="5" />-->
+    <TableLayout
+        android:id="@+id/units_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/student_table">
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/textViewUnitCodeHead"
+                android:padding="3dip"
+                android:text="@string/unit_code" />
+
+            <TextView
+                android:id="@+id/textViewUnitNameHead"
+                android:gravity="end"
+                android:padding="3dip"
+                android:text="@string/unit_name" />
         </TableRow>
     </TableLayout>
 
 </android.support.constraint.ConstraintLayout>
-
-<!--<android.support.constraint.Group-->
-<!--android:id="@+id/group2"-->
-<!--android:layout_width="wrap_content"-->
-<!--android:layout_height="wrap_content" />-->
-
-    <!--</android.support.constraint.ConstraintLayout>-->
