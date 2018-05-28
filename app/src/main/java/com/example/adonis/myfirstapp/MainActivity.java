@@ -1,19 +1,25 @@
 package com.example.adonis.myfirstapp;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.support.v4.app.DialogFragment;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView result_text;
     Button scan_click;
+    Button clear_data;
     TextView name_textView;
     TextView adm_textView;
     TextView academic_textView;
@@ -61,6 +68,15 @@ public class MainActivity extends AppCompatActivity {
         allow_checkbox = findViewById(R.id.allowed_exam_checkBox);
         program_textView = findViewById(R.id.textViewProgramValue);
         units_table = findViewById(R.id.units_table);
+        clear_data = findViewById(R.id.button);
+
+        clear_data.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearScreen();
+            }
+        });
+
         scan_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,8 +101,11 @@ public class MainActivity extends AppCompatActivity {
                 String returned_string = data.getStringExtra("exam_key");
                 if (isStringInt(returned_string)) {
                     getExamDetails(Integer.parseInt(returned_string));
+                    result_text.setText(R.string.loading);
                 } else {
-                    result_text.setText(returned_string);
+                    String title = "Unexpected value";
+                    String message = "Expected a numerical but got "+returned_string;
+                    alerDialog(title, message);
                 }
             }
         }
@@ -115,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                             String student_name = (String) response.get("student_name");
                             String student_admission = (String) response.get("admission");
                             String student_date = (String) response.get("date_allowed");
-                            boolean student_allowed = (Boolean) response.get("allowed_exam");
+                            boolean student_allowed = response.optBoolean("allowed_exam");
                             String student_program = (String) response.get("program");
                             int student_period = (int) response.get("period_exams");
                             int program_id = (int) response.get("program_id");
@@ -123,8 +142,9 @@ public class MainActivity extends AppCompatActivity {
                             name_textView.setText(student_name);
                             adm_textView.setText(student_admission);
                             date_textView.setText(student_date);
-//                            academic_textView.setText(student_academic);
+                            result_text.setText(R.string.success);
                             program_textView.setText(student_program);
+                            units_table.setStretchAllColumns(Boolean.TRUE);
                             allow_checkbox.setChecked(student_allowed);
                             //setup image
                             new DownloadImageTask(student_image).execute(student_image_url);
@@ -132,13 +152,19 @@ public class MainActivity extends AppCompatActivity {
 
 
                         } catch (JSONException e) {
+                            String title1 = "An error occured";
+                            String message2 = "Json error occurred"+e;
+                            alerDialog(title1, message2);
                             e.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                result_text.setText(String.format("Not found. For id%d", exam_id));
+                String title = "Not found";
+                String message = "Unexpected result for "+ exam_id;
+                alerDialog(title, message);
+                result_text.setText("Scan again!!");
             }
         });
 
@@ -159,18 +185,23 @@ public class MainActivity extends AppCompatActivity {
                             apply_table(response);
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            String title1 = "An error occured";
+                            String message2 = "Json error occurred"+e;
+                            alerDialog(title1, message2);
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                result_text.setText("Not found. For id");
+                String title1 = "An error occured";
+                String message2 = "Json error occurred"+error;
+                alerDialog(title1, message2);
             }
         });
         queue.add(jsonRequest);
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+    private static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
         public DownloadImageTask(ImageView bmImage) {
@@ -195,8 +226,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void apply_table(JSONArray response) throws JSONException {
-        for (int i = 1; i <= response.length(); i++) {
+    private void apply_table(JSONArray response) throws JSONException {
+        units_table.removeAllViews();
+        TableRow row_title = new TableRow(this);
+        TableRow.LayoutParams lp_title = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+        row_title.setLayoutParams(lp_title);
+        TextView code_title_view = new TextView(this);
+        TextView name_name_view = new TextView(this);
+        code_title_view.setText("Code");
+        name_name_view.setText("Name");
+        code_title_view.setTypeface(null, Typeface.BOLD);
+        name_name_view.setTypeface(null, Typeface.BOLD);
+        row_title.addView(code_title_view);
+        row_title.addView(name_name_view);
+        units_table.addView(row_title, 0);
+        for (int i = 0; i < response.length(); i++) {
             TableRow row = new TableRow(this);
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
             row.setLayoutParams(lp);
@@ -208,7 +252,30 @@ public class MainActivity extends AppCompatActivity {
             name_view.setText(name);
             row.addView(code_view);
             row.addView(name_view);
-            units_table.addView(row, i);
+            units_table.addView(row, i+1);
         }
+    }
+
+    private void clearScreen() {
+        name_textView.setText(R.string.clear_word);
+        adm_textView.setText(R.string.clear_word);
+        date_textView.setText(R.string.clear_word);
+        program_textView.setText(R.string.clear_word);
+        allow_checkbox.setChecked(Boolean.FALSE);
+        student_image.setImageResource(0);
+        units_table.removeAllViews();
+    }
+
+    private void alerDialog(String title, String message){
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 }

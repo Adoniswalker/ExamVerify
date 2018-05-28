@@ -8,14 +8,14 @@
 
     <TextView
         android:id="@+id/result_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="243dp"
+        android:layout_height="32dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/qr_label"
-        android:textColor="@android:color/holo_blue_dark"
+        android:textColor="#03202a"
         android:textSize="24sp"
         app:fontFamily="monospace"
         app:layout_constraintBottom_toTopOf="@+id/btn_scan"
@@ -26,15 +26,15 @@
 
     <Button
         android:id="@+id/btn_scan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="75dp"
+        android:layout_width="103dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="33dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/scan_qr"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/student_table"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/result_textview" />
@@ -48,6 +48,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@id/student_table"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_scan"
@@ -63,10 +64,14 @@
         android:id="@+id/student_table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/common_google_signin_btn_text_dark_disabled"
+        android:stretchColumns="1"
         app:layout_constraintBottom_toTopOf="@id/units_table"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:stretchColumns="1"
         app:layout_constraintTop_toBottomOf="@+id/btn_scan">
 
         <TableRow>
@@ -74,7 +79,8 @@
             <TextView
                 android:id="@+id/textViewNameLbl"
                 android:padding="3dip"
-                android:text="@string/student_name" />
+                android:text="@string/student_name"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewNameValue"
@@ -89,7 +95,8 @@
             <TextView
                 android:id="@+id/textViewRegLabel"
                 android:padding="3dip"
-                android:text="@string/reg_no" />
+                android:text="@string/reg_no"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewRegValue"
@@ -104,7 +111,8 @@
             <TextView
                 android:id="@+id/textViewDateLbl"
                 android:padding="3dip"
-                android:text="@string/date_allowed" />
+                android:text="@string/date_allowed"
+                android:textStyle="bold" />
 
 
             <TextView
@@ -120,7 +128,8 @@
             <TextView
                 android:id="@+id/textViewAcademicLbl"
                 android:padding="3dip"
-                android:text="@string/academic_year" />
+                android:text="@string/academic_year"
+                android:textStyle="bold" />
 
 
             <TextView
@@ -136,7 +145,8 @@
             <TextView
                 android:id="@+id/textViewAllowedLabel"
                 android:padding="3dip"
-                android:text="@string/allowed_exam" />
+                android:text="@string/allowed_exam"
+                android:textStyle="bold" />
 
 
             <CheckBox
@@ -152,7 +162,8 @@
             <TextView
                 android:id="@+id/textViewProgramLabel"
                 android:padding="3dip"
-                android:text="@string/program_name" />
+                android:text="@string/program_name"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewProgramValue"
@@ -166,25 +177,47 @@
         android:id="@+id/units_table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/common_google_signin_btn_text_dark_disabled"
         android:stretchColumns="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/student_table">
 
-        <TableRow>
+        <!--<TableRow>-->
 
-            <TextView
-                android:id="@+id/textViewUnitCodeHead"
-                android:padding="3dip"
-                android:text="@string/unit_code" />
+            <!--<TextView-->
+                <!--android:id="@+id/textViewUnitCodeHead"-->
+                <!--android:padding="3dip"-->
+                <!--android:text="@string/unit_code"-->
+                <!--android:textSize="18sp"-->
+                <!--android:textStyle="bold" />-->
 
-            <TextView
-                android:id="@+id/textViewUnitNameHead"
-                android:gravity="end"
-                android:padding="3dip"
-                android:text="@string/unit_name" />
-        </TableRow>
+            <!--<TextView-->
+                <!--android:id="@+id/textViewUnitNameHead"-->
+                <!--android:gravity="end"-->
+                <!--android:padding="3dip"-->
+                <!--android:text="@string/unit_name"-->
+                <!--android:textColor="?android:attr/colorAccent"-->
+                <!--android:textSize="18sp" />-->
+        <!--</TableRow>-->
     </TableLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="88dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/clear"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/student_table"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_scan" />
 
 </android.support.constraint.ConstraintLayout>

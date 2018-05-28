@@ -14,10 +14,14 @@
     <string name="allowed_exam_value">Allowed</string>
     <string name="unit_code">Code</string>
     <string name="unit_name">Name</string>
-    <string name="clear_word">...</string>
-    <string name="success">Successfull</string>
-    <string name="loading">Looding...</string>
+    <string name="clear_word">…</string>
+    <string name="success">Successful</string>
+    <string name="loading">Loading…</string>
     <string name="unexpected_int">Expected an int</string>
+    <string name="clear">clear</string>
+    <string name="cancel">Cancel</string>
+    <string name="fire">fire</string>
+    <string name="dialog_fire_missiles">Unsuppoted data, expecting a numerical</string>
     <string-array name="student_value">
         <item name="name_value">…</item>
         <item name="reg_value">…</item>
